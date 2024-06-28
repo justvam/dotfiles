@@ -1,0 +1,90 @@
+set preview true
+set hidden false
+set ignorecase true
+set icons true
+set ifs "\n"
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+cmd open ${{
+  case $(file --mime-type "$f" -bL) in
+    text/*|application/json) $EDITOR "$f";;
+    video/*|image/*/application/pdf) xdg-open "$f" & disown;;
+    *) xdg-open "$f" ;;
+    esac
+}}
+
+cmd chmod ${{
+  printf "Mode Bits: "
+  read ans
+
+  for file in $fx
+  do
+    chmod $ans $file
+  done
+  
+  lf -remote 'send reload'
+}}
+
+cmd mkdir ${{
+  echo "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  %echo "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+cmd trash ${{
+  gio trash $fx
+  #for file in $fx
+  #  do
+  #    gio trash $file
+  #  done
+}}
+
+cmd set_wallpaper ${{
+  hyprctl hyprpaper preload $f
+  hyprctl hyprpaper wallpaper eDP-1,$f
+  flavours generate dark $f
+  flavours apply generated
+  kitten themes --reload-in=all  Current-Theme
+  echo "preload = $f" > ~/.config/hypr/hyprpaper.conf
+  echo "wallpaper = eDP-1,$f" >> ~/.config/hypr/hyprpaper.conf
+}}
+
+# Remove some defaults
+map m
+map d
+
+# wallpaper
+map mw set_wallpaper
+
+# Creating files and directories
+map md mkdir
+map mf mkfile
+
+# Trash files
+map dd trash
+
+# Cut
+map x cut
+
+# chmod
+map mh chmod
+
+# Directories
+map gd cd ~/Downloads/
+map gt cd ~/Downloads/Torrents/
+map gv cd ~/Videos/
+map gD cd ~/Documents/
+map gr cd ~/Random/
+map gG cd ~/Games/
+map gp cd ~/Projects/
+map gP cd ~/Pictures/
