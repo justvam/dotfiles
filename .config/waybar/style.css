@@ -1,0 +1,81 @@
+@import "colors.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+window#waybar {
+  transition-property: background-color;
+  transition-duration: 0.1s;
+}
+window#waybar.hidden {
+  opacity: 0.1;
+}
+#clock,
+#mpris,
+#network,
+#tray,
+#pulseaudio,
+#pulseaudio.muted,
+#workspaces
+#network.disconnected {
+  color: @base05;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background-color: alpha(@base00, 0.5);
+
+  margin-left: 4px;
+  margin-right: 4px;
+
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+#workspaces button {
+  color: @base04;
+  box-shadow: inset 0 -3px transparent;
+  padding-right: 6px;
+  padding-left: 6px;
+  transition: all 0.1s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+}
+#workspaces button.empty {
+  color: @base03;
+}
+#workspaces button.active {
+  color: @base0B;
+}
+#mpris {
+  color: @base09;
+}
+#pulseaudio {
+  color: @base0D;
+}
+#pulseaudio.muted {
+  color: @base0A;
+}
+#network {
+  color: @base0F;
+}
+#network.disconnected {
+  color: @base0A;
+}
+#clock.time {
+  color: @base0E;
+}
+#clock.date {
+  color: @base08;
+}
+tooltip {
+  padding: 5px;
+  background-color: alpha(@base01, 0.75);
+}
+tooltip label {
+  padding: 5px;
+}
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @base0A;
+}
