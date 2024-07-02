@@ -1,8 +1,10 @@
 {
     "layer": "top",
+
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["image", "mpris"],
-    "modules-right": ["tray", "battery", "clock"],
+    "modules-right": ["privacy", "tray", "battery", "clock"],
+
     "hyprland/workspaces": {
       "format": "{icon}",
       "show-special": true,
@@ -21,6 +23,7 @@
         "10": "十",
         "music": ""
       },
+
       "persistent-workspaces": {
         "1": [],
         "2": [],
@@ -34,34 +37,59 @@
         "10": []
       }
     },
+
     "tray": {
       "spacing": 10
     },
+
     "hyprland/window": {
       "icon": true,
       "rewrite": {
         ".+":  ""
       }
     },
+
     "image": {
       "path": "/tmp/cover.jpg",
       "size": 32,
       "signal": 8
     },
+
     "mpris": {
       "format": "{status_icon} {title}",
-      "format-paused": "{status_icon} <i>{title}</i>",
+      "format-paused": "{status_icon}  <i>{title}</i>",
       "max-lenght": 80,
       "status-icons": {
         "playing": "",
         "paused": ""
       }
     },
+
     "battery": {
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""]
     },
+
     "clock": {
+		    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+
+    "privacy": {
+      "icon-spacing": 4,
+      "icon-size": 18,
+      "transition-duration": 250,
+      "modules": [
+        {
+          "type": "screenshare",
+          "tooltip": true,
+          "tooltip-icon-size": 24
+        },
+        {
+          "type": "audio-in",
+          "tooltip": true,
+          "tooltip-icon-size": 24
+        }
+      ]
     }
 }
