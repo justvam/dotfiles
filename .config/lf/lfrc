@@ -81,7 +81,17 @@ cmd mount_drive ${{
     if [ ! -d "$mount_point" ]; then
         sudo mkdir -p "$mount_point"
     fi
+
     sudo mount -o uid=$(id -u "$(whoami)"),gid=$(id -g "$(whoami)") "$drive" "$mount_point"
+        if [ $? -ne 0 ]; then
+            echo "Mounting with uid and gid options failed. Attempting with 'user' option..."
+            sudo mount -o user "$drive" "$mount_point"
+            if [ $? -ne 0 ]; then
+                echo "Error: Failed to mount '$drive' to '$mount_point'."
+                exit 1
+            fi
+        fi
+
     if [ $? -ne 0 ]; then
         echo "Error: Failed to mount '$drive' to '$mount_point'."
         return 1
@@ -100,10 +110,10 @@ cmd umount_drive ${{
 
     read -p "Enter the drive to unmount (e.g., /dev/sdb1): " drive
     
-    mount_point="$(findmnt -n -o TARGET --source /dev/sdb1)"
-
-    sudo umount "$drive"
-
+    mount_point="$(findmnt -n -o TARGET --source $drive)"
+    
+    sudo umount $drive
+    
     sudo rmdir $mount_point
 
     echo "Drive '$drive' successfully unmounted."
