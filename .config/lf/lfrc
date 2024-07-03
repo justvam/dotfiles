@@ -59,6 +59,58 @@ cmd set_wallpaper ${{
   echo "wallpaper = eDP-1,$f" >> ~/.config/hypr/hyprpaper.conf
 }}
 
+cmd mount_drive ${{
+    clear
+
+    echo "Available drives:"
+    
+    lsblk -o LABEL,NAME,SIZE,TYPE,MOUNTPOINT
+
+    read -p "Enter the drive to mount (e.g., /dev/sdb1): " drive
+
+    read -p "Enter the mount point (e.g., /mnt/usb): " mount_point
+    
+    if [ ! -b "$drive" ]; then
+        echo "Error: Drive '$drive' does not exist."
+    fi
+    
+    if [ -z "$mount_point" ]; then
+        mount_point="/run/media/$(whoami)/$(basename $(lsblk -no LABEL "$drive"))"
+    fi
+
+    if [ ! -d "$mount_point" ]; then
+        sudo mkdir -p "$mount_point"
+    fi
+
+    sudo mount "$drive" "$mount_point"
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to mount '$drive' to '$mount_point'."
+        return 1
+    fi
+
+    echo "Drive successfully mounted to '$mount_point'."
+
+
+}}
+
+cmd umount_drive ${{
+    clear
+    echo "Mounted drives:"
+    
+    lsblk -o LABEL,NAME,SIZE,TYPE,MOUNTPOINT | grep -e "/"
+
+    read -p "Enter the drive to unmount (e.g., /dev/sdb1): " drive
+    
+    mount_point="$(findmnt -n -o TARGET --source /dev/sdb1)"
+
+    sudo umount "$drive"
+
+    sudo rmdir $mount_point
+
+    echo "Drive '$drive' successfully unmounted."
+
+}}
+
 # Remove some defaults
 map m
 map d
@@ -88,3 +140,9 @@ map gr cd ~/Random/
 map gG cd ~/Games/
 map gp cd ~/Projects/
 map gP cd ~/Pictures/
+map gm cd /run/media/
+
+# mounting drives
+map dm mount_drive
+map du umount_drive
+
