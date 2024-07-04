@@ -3,7 +3,7 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["image", "mpris"],
-    "modules-right": ["privacy", "tray", "battery", "clock"],
+    "modules-right": ["privacy", "custom/swaync", "tray", "battery", "clock"],
 
     "hyprland/workspaces": {
       "format": "{icon}",
@@ -91,5 +91,11 @@
           "tooltip-icon-size": 24
         }
       ]
-    }
+  },
+
+  "custom/swaync": {
+    "exec": "~/.config/waybar/scripts/swaync.sh",
+    "on-click": "swaync-client --open-panel",
+    "restart-interval": 1
+  }
 }

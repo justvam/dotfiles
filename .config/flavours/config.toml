@@ -70,10 +70,14 @@ file = "~/.config/nvim/lua/themes/flavours.lua"
 template = "myNvim"
 rewrite = true
 
+[[item]]
+file = "~/.config/swaync/colors.css"
+template = "swaync"
+rewrite = true
+hook = "swaync-client -rs"
+
 
 #[[items]]
 #file = "~/.config/beautifuldiscord/style.css"
 #template = "styles"
 #subtemplate = "css-variables"
-#start= "/* Start flavours */"
-#end = "/* End flavours */"
