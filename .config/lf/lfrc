@@ -17,6 +17,19 @@ cmd open ${{
     esac
 }}
 
+cmd convert ${{
+  printf "Convert to: "
+  read ans
+  
+  for file in $fx
+  do
+    basename=$(basename "$file" | sed 's/\.[^.]*$//')
+    output="${basename}.${ans}"
+
+    ffmpeg -i "$file" "$output"
+  done
+}}
+
 cmd chmod ${{
   printf "Mode Bits: "
   read ans
@@ -155,3 +168,5 @@ map gm cd /run/media/
 map dm mount_drive
 map du umount_drive
 
+# convert files
+map mc convert
