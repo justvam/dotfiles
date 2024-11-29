@@ -1,0 +1,2 @@
+export MANGADEXDL_CONFIG_ENABLED=1
+~/Documents/github/mangadex-downloader/venv/bin/python -m mangadex_downloader --save-as epub-single --path ~/Downloads/mangadex/ "$@"

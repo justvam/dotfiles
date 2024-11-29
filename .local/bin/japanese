@@ -1,0 +1,3 @@
+hyprctl dispatch "exec [workspace 2 silent] anki"
+hyprctl dispatch "exec [workspace 2 silent] ~/Projects/clocking/target/release/clocking ~/Projects/clocking/target/release/data.db"
+hyprctl dispatch "exec [workspace 3 silent] kitty lf ~/Downloads/Torrents/"
