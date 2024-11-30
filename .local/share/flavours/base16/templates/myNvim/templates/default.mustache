@@ -65,6 +65,12 @@ M.base_16 = {
 }
 
 M.polish_hl = {
+  defaults = {
+    Comment = {
+      fg = rgbToHex({{base00-rgb-r}}*1.40*1.80,{{base00-rgb-g}}*1.40*1.80,{{base00-rgb-b}}*1.40*1.80),
+    },
+  },
+
   treesitter = {
     ["@variable"] = { fg = M.base_30.lavender },
     ["@property"] = { fg = M.base_30.teal },
