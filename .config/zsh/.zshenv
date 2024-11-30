@@ -6,6 +6,10 @@ export XMODIFIERS='@im=fcitx'
 # default editor
 export EDITOR='nvim'
 
+
+# fix npm https://wiki.archlinux.org/title/Node.js#Allow_user-wide_installations 
+export npm_config_prefix="$HOME/.local"
+
 # XDG paths
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -34,4 +38,4 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
 # Custom PATHS
-export PATH="${PATH}:${XDG_DATA_HOME}/bin"
+export PATH="${PATH}:${XDG_DATA_HOME}/bin:${HOME}/.local/bin:${CARGO_HOME}/bin"
