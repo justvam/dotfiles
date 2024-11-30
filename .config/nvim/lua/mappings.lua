@@ -41,6 +41,5 @@ function ()
   require("crates").upgrade_all_crates()
 end, { desc = "Update rust crates" })
 
--- more keybinds!
 
 -- return M
