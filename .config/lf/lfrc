@@ -133,6 +133,12 @@ cmd umount_drive ${{
 
 }}
 
+cmd clipboard ${{
+  echo "file://${f}" | wl-copy
+}}
+
+map my clipboard
+
 # Remove some defaults
 map m
 map d
@@ -163,6 +169,7 @@ map gG cd ~/Games/
 map gp cd ~/Projects/
 map gP cd ~/Pictures/
 map gm cd /run/media/
+map gj cd ~/Documents/Japanese/
 
 # mounting drives
 map dm mount_drive
