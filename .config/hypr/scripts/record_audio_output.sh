@@ -20,7 +20,7 @@ else
 
     pw-record --target alsa_output.pci-0000_00_1f.3.analog-stereo --latency 20ms --rate 44100 $temp_raw_file
 
-    ffmpeg -ss 0.02 -i "$temp_raw_file" -q:a 2 "$filename"
+    ffmpeg -ss 0.02 -i "$temp_raw_file" -b:a 128k "$filename"
 
     rm -f "$temp_raw_file"
 
