@@ -17,8 +17,11 @@ else
     notify-send "Recording to out_${rand}.opus"
 
     temp_raw_file=$(mktemp /tmp/raw_audio_XXXXXX.wav)
+    
 
-    pw-record --target alsa_output.pci-0000_00_1f.3.analog-stereo --latency 20ms --rate 44100 $temp_raw_file
+    # fix wireplumber/pipewire weirdness
+    # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2731
+    pw-record -P stream.capture.sink=true --target $deviceMonitor --latency 20ms --rate 48000 $temp_raw_file
 
     ffmpeg -ss 0.02 -i "$temp_raw_file" -b:a 128k "$filename"
 
