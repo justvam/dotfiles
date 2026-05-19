@@ -48,27 +48,33 @@ return {
 
                       client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
                         runtime = {
-                          version = 'LuaJIT',
-                          path = {
-                            'lua/?.lua',
-                            'lua/?/init.lua',
-                          },
+                            version = 'LuaJIT',
+                            path = {
+                                'lua/?.lua',
+                                'lua/?/init.lua',
+                            },
                         },
                         -- Make the server aware of Neovim runtime files
                         workspace = {
-                          checkThirdParty = false,
-                          library = {
-                            vim.env.VIMRUNTIME
-                            -- Depending on the usage, you might want to add additional paths
-                            -- here.
-                            -- '${3rd}/luv/library'
-                            -- '${3rd}/busted/library'
-                          }
-                        }
-                      })
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME,
+                                -- Depending on the usage, you might want to add additional paths
+                                -- here.
+                                '${3rd}/luv/library',
+                                '${3rd}/busted/library'
+                            },
+                            preloadFileSize = 1024, -- 1 MB (in KB)
+                            maxPreload = 10000,
+                        },
+                    })
                     end,
                     settings = {
-                      Lua = {}
+                        Lua = {
+                            workspace = {
+                                preloadFileSize = 1024,
+                            }
+                        }
                     }
                   })
             else
@@ -78,7 +84,7 @@ return {
             end
         end
 
-
+        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         local cmp = require'cmp'
 
         cmp.setup({
@@ -120,6 +126,11 @@ return {
             { name = 'buffer' },
           })
         })
+        cmp.event:on(
+            'confirm_done',
+            cmp_autopairs.on_confirm_done()
+        )
+
         vim.diagnostic.config({
             virtual_text = true,
             update_in_insert = true,
